@@ -1,20 +1,23 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 import {Map, TileLayer, Marker, Popup, PropTypes as MapPropTypes } from 'react-leaflet' ;
-import{ L } from 'leaflet'
+import  Leaflet   from 'leaflet';
 
-var boatIcon = L.icon({
-    iconUrl: 'ship.png',
 
-    iconSize:     [38, 95], // size of the icon
-    iconAnchor:   [22, 94], // point of the icon which will correspond to marker's location
-    popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
+const LeafIcon = Leaflet.Icon.extend({
+  options: {
+    iconSize: [20, 35 ]
+  }
 });
 
-const MyPopupMarker = ({ children, position }) => (
-    <Marker position={position}>
+const boatIcon = new LeafIcon({iconUrl: 'ship.svg'});
+
+const vortexIcon = new LeafIcon({iconUrl: 'vortex.png', iconSize: [60,60]});
+
+const MyPopupMarker = ({ children, position, icon }) => (
+    <Marker position={position} icon={icon}>
     </Marker>
-  )
+  );
 
   const MyMarkersList = ({ markers }) => {
     const items = markers.map(({ key, ...props }) => (
@@ -28,7 +31,7 @@ const MyPopupMarker = ({ children, position }) => (
 
 class MyMap extends React.Component {
     constructor() {
-      super()
+      super();
       this.state = {
         lat: -8.5863775,
         lng: -124.6636522,
@@ -41,7 +44,7 @@ class MyMap extends React.Component {
 
     const markers = [
       { key: 'marker1', position: [-18.9,-124.63], icon: boatIcon },
-      { key: 'marker2', position: [-5.2,-123.53] , icon: boatIcon},
+      { key: 'marker2', position: [-5.2,-123.53] , icon: vortexIcon},
       { key: 'marker3', position: [ -12.58,-123.43] , icon: boatIcon},
     ]
       const position = [this.state.lat, this.state.lng];

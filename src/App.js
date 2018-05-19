@@ -16,7 +16,10 @@ class App extends Component {
       <div className='app'>
         <header>
             <div className='wrapper'>
-              <h1>Plastic Killah</h1>
+              <div>
+                <img style={{verticalAlign: "middle"}} src="plastickilah.png" />
+                  <h1 style={{verticalAlign: "middle"}}>Plastic Killah</h1>
+              </div>
               <MyMap />
             </div>
         </header>
