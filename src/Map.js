@@ -2,7 +2,7 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import {Map, TileLayer, Marker, Popup, PropTypes as MapPropTypes } from 'react-leaflet' ;
 import  Leaflet   from 'leaflet';
-
+import firebase from './firebase.js';
 
 const LeafIcon = Leaflet.Icon.extend({
   options: {
@@ -36,25 +36,51 @@ class MyMap extends React.Component {
         lat: -8.5863775,
         lng: -124.6636522,
         zoom: 3,
+        markers: []
       }
     }
+    componentDidMount() {
+        let markers = this.state.markers;
+        firebase.database().ref('checkins/atlantic').once('value')
+            .then( (snapshot) =>  {
+                const boats = snapshot.val();
+                const boatMarkers = Object.keys(boats)
+                    .map(key => {
+                        return ({
+                            key,
+                            position: [boats[key]['lat'],boats[key]['long']],
+                            icon: boatIcon
+                        });
+            });
+            markers.push(...boatMarkers);
+            this.setState({markers});
+        });
 
+        firebase.database().ref('vortices/atlantic').once('value')
+            .then( (snapshot) =>  {
+                const vortices = snapshot.val();
+                const vortexMarkers = Object.keys(vortices)
+                    .map(key => {
+                        return ({
+                            key,
+                            position: [vortices[key]['lat'],vortices[key]['long']],
+                            icon: vortexIcon
+                        });
+            });
+            markers.push(...vortexMarkers);
+            this.setState({markers});
+        });
+    }
     render() {
     const center = [this.state.lat, this.state.lng]
 
-    const markers = [
-      { key: 'marker1', position: [-18.9,-124.63], icon: boatIcon },
-      { key: 'marker2', position: [-5.2,-123.53] , icon: vortexIcon},
-      { key: 'marker3', position: [ -12.58,-123.43] , icon: boatIcon},
-    ]
       const position = [this.state.lat, this.state.lng];
       return (
         <Map center={center} zoom={this.state.zoom}>
         <TileLayer
-          attribution="&amp;copy <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
-        <MyMarkersList markers={markers} />
+        <MyMarkersList markers={this.state.markers} />
       </Map>
       );
     }

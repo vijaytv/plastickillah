@@ -3,13 +3,12 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import MyMap from './Map';
+import NewMap from './NewMap';
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.myRef = React.createRef();
-  }
-  ComponentDidMount() {
   }
   render() {
     return (
@@ -20,7 +19,7 @@ class App extends Component {
                 <img style={{verticalAlign: "middle"}} src="plastickilah.png" />
                   <h1 style={{verticalAlign: "middle"}}>Plastic Killah</h1>
               </div>
-              <MyMap />
+              <NewMap />
             </div>
         </header>
         <div className='container'>
