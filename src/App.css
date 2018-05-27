@@ -68,8 +68,7 @@ header i {
 }
 
 .wrapper {
-  max-width: 1100px;
-  margin: 0 auto;
+  margin: 0 2rem;
 }
 
 .add-item {
@@ -151,8 +150,9 @@ form button {
   margin-top: 10px;
 }
 
-button {
-  border-radius: 2px;
+button, a.globe {
+  border-radius: 4px;
+  margin: 2px;
   min-width: 88px;
   background-color: #FA6900;
   cursor: pointer;
@@ -165,10 +165,37 @@ button {
 }
 .map {
   height: 80vh;
-  width: 100%;
+  width: 60%;
 }
 
 .leaflet-container {
   height: 80vh;
   width: 100%;
+}
+
+.sidebar {
+  flex: 1 0 200px;
+  margin-bottom: 10px;
+}
+
+.flex-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  flex-wrap:  wrap;
+}
+
+.flex-start {
+  justify-content: flex-start;
+}
+
+a.globe:link, a.globe:visited {
+    color: white;
+    /* padding: 8px 25px; */
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+  }
+a.globe:hover, a.globe:active {
+    background-color: red;
 }
