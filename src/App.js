@@ -33,7 +33,7 @@ class App extends Component {
                   }}>Great Pacific</button>
               <button onClick={() => {this.changeVortex('atlantic')}}>Atlantic</button>
               <button onClick={() => {this.changeVortex('indianocean')}}>Indian Ocean</button>
-              <a className='globe' href='/earth.html'>Globe</a>
+              <a className='globe' target='_parent' href='/earth.html'>Globe</a>
              </div>
             <MyMap vortex={this.state.vortex} />
           </div>
