@@ -4,14 +4,15 @@
 		<title>Tracker</title>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+		<link rel="stylesheet" href="./App.css">
 		<style>
 			body {
-				color: #808080;
+				color: #eb5151;
 				font-family:Monospace;
 				font-size:13px;
 				text-align:center;
 
-				background-color: #ffffff;
+				background-color: #000;
 				margin: 0px;
 				overflow: hidden;
 			}
@@ -31,7 +32,7 @@
 	</head>
 	<body>
 		<div className='flex-row'>
-			<div className='sidebar'> <a href='/index.html'>Back</a> </div>
+			<div class='sidebar'> <a class='globe blue' href='/index.html'> << Back</a> </div>
 			<div id="container"></div>
 		  </div>
 
@@ -62,10 +63,30 @@
 				camera.position.z = 500;
 
 				scene = new THREE.Scene();
-				scene.background = new THREE.Color( 0xffffff );
+				scene.background = new THREE.Color( 0 );
 
 				group = new THREE.Group();
 				scene.add( group );
+
+				var starsGeometry = new THREE.Geometry();
+
+				for ( var i = 0; i < 10000; i ++ ) {
+
+					var star = new THREE.Vector3();
+					star.x = THREE.Math.randFloatSpread( 2000 );
+					star.y = THREE.Math.randFloatSpread( 2000 );
+					star.z = THREE.Math.randFloatSpread( 2000 );
+
+					starsGeometry.vertices.push( star );
+
+				}
+
+				var starsMaterial = new THREE.PointsMaterial( { color: 0x888888 } );
+
+				var starField = new THREE.Points( starsGeometry, starsMaterial );
+
+				scene.add( starField );
+
 
 				// earth
 
@@ -73,7 +94,7 @@
 				//loader.load( 'land_ocean_ice_cloud_2048.jpg', function ( texture ) {
 				loader.load( 'earthmap1k.jpg', function ( texture ) {
 
-					var geometry = new THREE.SphereGeometry( 250, 20, 20 );
+					var geometry = new THREE.SphereGeometry( 200, 20, 20 );
 
                     var material = new THREE.MeshBasicMaterial( { map: texture, overdraw: 0.5 } );
 					var mesh = new THREE.Mesh( geometry, material );
@@ -112,10 +133,10 @@ var mesh  = new THREE.Mesh(geometry, material)
 					canvas.height / 2,
 					canvas.width / 2
 				);
-				gradient.addColorStop( 0.1, 'rgba(210,210,210,1)' );
-				gradient.addColorStop( 1, 'rgba(255,255,255,1)' );
-
-				context.fillStyle = gradient;
+				// gradient.addColorStop( 0.1, 'rgba(210,210,210,1)' );
+				// gradient.addColorStop( 1, 'rgba(255,255,255,1)' );
+				context.fillStyle = 'black';
+				//context.fillStyle = gradient;
 				context.fillRect( 0, 0, canvas.width, canvas.height );
 
 				var texture = new THREE.CanvasTexture( canvas );

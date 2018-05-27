@@ -1,7 +1,6 @@
 
 import React, { Component } from 'react';
 import logo from './logo.svg';
-import './App.css';
 import MyMap from './Map';
 import NewMap from './NewMap';
 

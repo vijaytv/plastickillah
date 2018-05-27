@@ -163,6 +163,10 @@ button, a.globe {
   box-shadow: 0 2px 5px 0 rgba(0,0,0,.26);
   padding: 10px 6px;
 }
+a.blue {
+  background-color: #324eef;
+
+}
 .map {
   height: 80vh;
   width: 60%;
