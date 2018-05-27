@@ -66,10 +66,9 @@ class MyMap extends React.Component {
         markers: []
       }
     }
-    updateMap = () => {
+    updateMap = (props) => {
       let markers = [];
-      console.log(this.props.vortex);
-      firebase.database().ref(`checkins/${this.props.vortex}`).once('value')
+      firebase.database().ref(`checkins/${props.vortex}`).once('value')
           .then( (snapshot) =>  {
               const boats = snapshot.val();
               const boatMarkers = Object.keys(boats)
@@ -86,11 +85,11 @@ class MyMap extends React.Component {
           this.setState({markers});
       });
 
-      firebase.database().ref(`vortices/${this.props.vortex}`).once('value')
+      firebase.database().ref(`vortices/${props.vortex}`).once('value')
           .then( (snapshot) =>  {
               const vortex = snapshot.val();
               const vortexMarkers = [{
-                key: this.props.vortex,
+                key: props.vortex,
                 rectangle: [
                   [vortex['topleft']['lat'],vortex['topleft']['long']],
                   [vortex['bottomright']['lat'],vortex['bottomright']['long']]
@@ -106,10 +105,13 @@ class MyMap extends React.Component {
       });
     }
     componentDidMount() {
-      this.updateMap()
+      this.updateMap(this.props)
     }
     componentWillReceiveProps(newProps) {
-      this.updateMap();
+      this.updateMap(newProps);
+    }
+    shouldComponentUpdate() {
+      return true;
     }
     render() {
       const center = this.state.position

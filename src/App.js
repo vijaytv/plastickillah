@@ -15,6 +15,9 @@ class App extends Component {
   changeVortex = (vortex) => {
     this.setState({vortex});
   }
+  gotoGlobe = () => {
+    document.location.href = 'earth.html';
+  }
   render() {
     return (
       <div className='app'>
@@ -33,7 +36,8 @@ class App extends Component {
                   }}>Great Pacific</button>
               <button onClick={() => {this.changeVortex('atlantic')}}>Atlantic</button>
               <button onClick={() => {this.changeVortex('indianocean')}}>Indian Ocean</button>
-              <a className='globe' target='_parent' href='/earth.html'>Globe</a>
+              <button onClick={this.gotoGlobe}>Globe</button>
+
              </div>
             <MyMap vortex={this.state.vortex} />
           </div>
